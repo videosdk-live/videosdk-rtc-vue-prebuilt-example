@@ -71,6 +71,12 @@ export default {
         containerId: null,
         recordingEnabled: true,
         recordingWebhookUrl: "https://www.videosdk.live/callback",
+        recordingEnabledByDefault: false,
+        participantCanToggleRecording: true,
+        brandingEnabled: true,
+        brandLogoURL:
+          "https://app.videosdk.live/_next/image?url=%2Fvideosdk_logo_circle.png&w=1920&q=75",
+        brandName: "VIDEO SDK LIVE",
       };
       const videoMeeting = new VideoSDKMeeting();
 

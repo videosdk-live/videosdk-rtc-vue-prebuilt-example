@@ -32,16 +32,18 @@ Visit our official guide for [Browser Support](https://docs.videosdk.live/docs/r
 
 ## Prerequisites
 
-- Basics of Vue
+- node
+- npm
 
 ## Getting started
 
-## SERVER
+### Server-side (for authentication)
 
 1. Clone the repo
 
    ```sh
-   $ git clone https://github.com/videosdk-live/videosdk-rtc-nodejs-sdk-example
+   $ git clone https://github.com/videosdk-live/videosdk-rtc-nodejs-sdk-example.git
+   $ cd videosdk-rtc-nodejs-sdk-example
    ```
 
 2. Copy the `.env.example` file to `.env` file.
@@ -70,9 +72,14 @@ Visit our official guide for [Browser Support](https://docs.videosdk.live/docs/r
    $ npm run start
    ```
 
-## CLIENT
+## Client-side (vue project)
 
-1. Clone current repo
+1. Clone the repo
+
+   ```sh
+   $ git clone https://github.com/videosdk-live/videosdk-rtc-vue-prebuilt-example.git
+   $ cd videosdk-rtc-vue-prebuilt-example
+   ```
 
 2. Copy the `.env.example` file to `.env` file.
 
@@ -80,13 +87,19 @@ Visit our official guide for [Browser Support](https://docs.videosdk.live/docs/r
    $ cp .env.example .env
    ```
 
-3. Install NPM packages
+3. Update server api url in `.env` file if server running on different port
+
+   ```
+   VUE_APP_VIDEOSDK_API_ENDPOINT="http://localhost:9000"
+   ```
+
+4. Install NPM packages
 
    ```sh
    $ npm install
    ```
 
-4. Run the client
+5. Run the client
 
    ```sh
    $ npm run serve

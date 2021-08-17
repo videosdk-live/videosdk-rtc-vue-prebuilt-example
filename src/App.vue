@@ -13,15 +13,17 @@ export default {
   },
   methods: {
     getToken: async function() {
-      const ENDPOINT = "http://192.168.0.81:9000/"; // localhopst:9000
       try {
-        const response = await fetch(`${ENDPOINT}get-token`, {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await fetch(
+          `${process.env.VUE_APP_VIDEOSDK_API_ENDPOINT}/get-token`,
+          {
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+          }
+        );
         const { token } = await response.json();
         return token;
       } catch (e) {
@@ -30,12 +32,13 @@ export default {
     },
     getMeetingId: async function(token) {
       try {
-        const VIDEOSDK_API_ENDPOINT = `https://api.zujonow.com/v1/meetings`;
+        const VIDEOSDK_API_ENDPOINT = `${process.env.VUE_APP_VIDEOSDK_API_ENDPOINT}/create-meeting`;
         const options = {
           method: "POST",
           headers: {
-            Authorization: token,
+            "Content-Type": "application/json",
           },
+          body: JSON.stringify({ token }),
         };
         const response = await fetch(VIDEOSDK_API_ENDPOINT, options)
           .then(async (result) => {
@@ -50,6 +53,8 @@ export default {
     },
   },
   mounted: async function() {
+    console.log(process.env.VUE_APP_VIDEOSDK_API_ENDPOINT); // SOME_KEY_VALUE
+
     const token = await this.getToken();
     const meetingId = await this.getMeetingId(token);
     if (meetingId) {

@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { VideoSDKMeeting } from "@videosdk.live/js-prebuilt";
+import { VideoSDKMeeting } from "@videosdk.live/rtc-js-prebuilt";
 export default {
   name: "App",
   data() {
@@ -11,82 +11,44 @@ export default {
       name: "Flavio",
     };
   },
-  methods: {
-    getToken: async function() {
-      try {
-        const response = await fetch(
-          `${process.env.VUE_APP_VIDEOSDK_API_ENDPOINT}/get-token`,
-          {
-            method: "GET",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        const { token } = await response.json();
-        return token;
-      } catch (e) {
-        console.log(e);
-      }
-    },
-    getMeetingId: async function(token) {
-      try {
-        const VIDEOSDK_API_ENDPOINT = `${process.env.VUE_APP_VIDEOSDK_API_ENDPOINT}/create-meeting`;
-        const options = {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ token }),
-        };
-        const response = await fetch(VIDEOSDK_API_ENDPOINT, options)
-          .then(async (result) => {
-            const { meetingId } = await result.json();
-            return meetingId;
-          })
-          .catch((error) => console.log("error", error));
-        return response;
-      } catch (e) {
-        console.log(e);
-      }
-    },
-  },
   mounted: async function() {
-    console.log(process.env.VUE_APP_VIDEOSDK_API_ENDPOINT); // SOME_KEY_VALUE
+    const apiKey = process.env.VUE_APP_VIDEOSDK_API_KEY;
+    const meetingId = "milkyway";
+    const name = "Demo User";
 
-    const token = await this.getToken();
-    const meetingId = await this.getMeetingId(token);
-    if (meetingId) {
-      let name = "Demo User";
-      const videoMeetingSpecs = {
-        micEnabled: true,
-        webcamEnabled: true,
-        name,
-        meetingId,
-        redirectOnLeave: window.location.href,
-        chatEnabled: true,
-        screenShareEnabled: true,
-        pollEnabled: true,
-        whiteBoardEnabled: true,
-        participantCanToggleSelfWebcam: true,
-        participantCanToggleSelfMic: true,
-        raiseHandEnabled: true,
-        token: token,
-        containerId: null,
-        recordingEnabled: true,
-        recordingWebhookUrl: "https://www.videosdk.live/callback",
-        recordingEnabledByDefault: false,
-        participantCanToggleRecording: true,
-        brandingEnabled: true,
-        brandLogoURL:
-          "https://app.videosdk.live/_next/image?url=%2Fvideosdk_logo_circle.png&w=1920&q=75",
-        brandName: "VIDEO SDK LIVE",
-      };
-      const videoMeeting = new VideoSDKMeeting();
+    const config = {
+      name: name,
+      meetingId: meetingId,
+      apiKey: apiKey,
 
-      await videoMeeting.init(videoMeetingSpecs);
-    }
+      containerId: null,
+      redirectOnLeave: "https://www.videosdk.live/",
+
+      micEnabled: true,
+      webcamEnabled: true,
+      participantCanToggleSelfWebcam: true,
+      participantCanToggleSelfMic: true,
+
+      chatEnabled: true,
+      screenShareEnabled: true,
+      pollEnabled: true,
+      whiteBoardEnabled: true,
+      raiseHandEnabled: true,
+
+      recordingEnabled: true,
+      recordingEnabledByDefault: false,
+      recordingWebhookUrl: "https://www.videosdk.live/callback",
+      participantCanToggleRecording: true,
+
+      brandingEnabled: true,
+      brandLogoURL: "https://picsum.photos/200",
+      brandName: "Awesome startup",
+
+      participantCanLeave: true, // if false, leave button won't be visible
+    };
+    const meeting = new VideoSDKMeeting();
+
+    meeting.init(config);
   },
 };
 </script>

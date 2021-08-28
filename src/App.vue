@@ -11,7 +11,7 @@ export default {
       name: "Flavio",
     };
   },
-  mounted: async function() {
+  mounted: async function () {
     const apiKey = process.env.VUE_APP_VIDEOSDK_API_KEY;
     const meetingId = "milkyway";
     const name = "Demo User";
@@ -45,6 +45,23 @@ export default {
       brandName: "Awesome startup",
 
       participantCanLeave: true, // if false, leave button won't be visible
+
+      // Live stream meeting to youtube
+      livestream: {
+        autoStart: true,
+        outputs: [
+          // {
+          //   url: "rtmp://x.rtmp.youtube.com/live2",
+          //   streamKey: "<STREAM KEY FROM YOUTUBE>",
+          // },
+        ],
+      },
+
+      permissions: {
+        askToJoin: false, // Ask joined participants for entry in meeting
+        toggleParticipantMic: true, // Can toggle other participant's mic
+        toggleParticipantWebcam: true, // Can toggle other participant's webcam
+      },
     };
     const meeting = new VideoSDKMeeting();
 

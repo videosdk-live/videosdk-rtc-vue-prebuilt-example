@@ -11,7 +11,7 @@ export default {
       name: "Flavio",
     };
   },
-  mounted: async function () {
+  mounted: async function() {
     const apiKey = process.env.VUE_APP_VIDEOSDK_API_KEY;
     const meetingId = "milkyway";
     const name = "Demo User";
@@ -61,6 +61,17 @@ export default {
         askToJoin: false, // Ask joined participants for entry in meeting
         toggleParticipantMic: true, // Can toggle other participant's mic
         toggleParticipantWebcam: true, // Can toggle other participant's webcam
+      },
+
+      joinScreen: {
+        visible: true, // Show the join screen ?
+        title: "Daily scrum", // Meeting title
+        meetingUrl: window.location.href, // Meeting joining url
+      },
+
+      pin: {
+        allowed: true, // participant can pin any participant in meeting
+        layout: "SPOTLIGHT", // meeting layout - GRID | SPOTLIGHT | SIDEBAR
       },
     };
     const meeting = new VideoSDKMeeting();

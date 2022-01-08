@@ -11,7 +11,7 @@ export default {
       name: "Flavio",
     };
   },
-  mounted: async function () {
+  mounted: async function() {
     const apiKey = process.env.VUE_APP_VIDEOSDK_API_KEY;
     const meetingId = "milkyway";
     const name = "Demo User";
@@ -38,6 +38,7 @@ export default {
       recordingEnabled: true,
       recordingEnabledByDefault: false,
       recordingWebhookUrl: "https://www.videosdk.live/callback",
+      recordingAWSDirPath: `/meeting-recordings/${meetingId}/`, // automatically save recording in this s3 path
 
       brandingEnabled: true,
       brandLogoURL: "https://picsum.photos/200",
@@ -76,6 +77,15 @@ export default {
       pin: {
         allowed: true, // participant can pin any participant in meeting
         layout: "SPOTLIGHT", // meeting layout - GRID | SPOTLIGHT | SIDEBAR
+      },
+
+      leftScreen: {
+        // visible when redirect on leave not provieded
+        actionButton: {
+          // optional action button
+          label: "Video SDK Live", // action button label
+          href: "https://videosdk.live/", // action button href
+        },
       },
     };
     const meeting = new VideoSDKMeeting();

@@ -1,3 +1,6 @@
+# Deprecated
+Please use this repo: https://github.com/videosdk-live/videosdk-rtc-prebuilt-examples
+
 # Video SDK No Code Prebuilt App for Vue.
 
 ## What is it?
